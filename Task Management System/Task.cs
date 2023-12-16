@@ -4,10 +4,10 @@ public class Task
 {
     private static int _counter = 0;
     public int TaskId { get; set; }
-    public string TaskName { get; set; }
-    public string Description { get; set; }
-    public DateTime DueDate { get; set; }
-    public bool IsComplete { get; set; }
+    private string TaskName { get; set; }
+    private string Description { get; set; }
+    private DateTime DueDate { get; set; }
+    private bool IsComplete { get; set; }
 
     public Task(string taskName, string description)
     {

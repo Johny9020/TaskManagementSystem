@@ -29,7 +29,7 @@ public class TaskManager
         return _tasks;
     }
 
-    public Task GetTaskById(int id)
+    public Task? GetTaskById(int id)
     {
         foreach (var task in _tasks)
         {

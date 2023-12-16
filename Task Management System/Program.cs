@@ -2,11 +2,11 @@
 
 class Program
 {
-    public static TaskManager taskManager;
+    private static TaskManager _taskManager;
     
     private static void Main()
     {
-        taskManager = new TaskManager();
+        _taskManager = new TaskManager();
         
         Console.WriteLine("Task Management System. By Johny9020");
         Console.WriteLine("Please follow the instructions bellow. Press a number according to the wished command.");
@@ -45,23 +45,41 @@ class Program
         Console.WriteLine("Please specify a description for the task");
         var description = Console.ReadLine();
         
-        taskManager.AddTask(new Task(taskName, description));
+        _taskManager.AddTask(new Task(taskName, description));
         Run();
     }
 
     private static void DisplayTask()
     {
-        Console.WriteLine("Please enter a task id...");
-        var pressedKey = Console.ReadLine();
-        taskManager.GetTaskById(int.Parse(pressedKey)).DisplayTaskDetails();
-        Console.WriteLine("Enter any key to continue...");
-        Console.ReadLine();
-        Run();
+        try
+        {
+            Console.WriteLine("Please enter a task id or 0 to exit to main menu...");
+            var pressedKey = Console.ReadLine();
+            
+            if(pressedKey == "0")
+                Run();
+            
+            var displayTask = _taskManager.GetTaskById(int.Parse(pressedKey));
+            
+            if (displayTask == null)
+            {
+                Console.WriteLine("Invalid task id!");
+                DisplayTask();
+            }
+            Console.WriteLine("Enter any key to continue...");
+            Console.ReadLine();
+            Run();
+        }
+        catch (FormatException e)
+        {
+            Console.WriteLine("Invalid task id!");
+            DisplayTask();
+        }
     }
 
     private static void Exit()
     {
         Console.WriteLine("Thank you for using Johny9020's Task Management system!");
-        System.Environment.Exit(1);
+        Environment.Exit(1);
     }
 }
