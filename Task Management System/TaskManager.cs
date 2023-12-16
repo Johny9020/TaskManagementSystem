@@ -14,14 +14,35 @@ public class TaskManager
         Console.WriteLine("Creating a new task with ID: " + task.TaskId);
     }
 
-    public void ViewAllTasks()
+    public void DisplayAllTasks()
     {
-        // Display All tasks
+        foreach (var task in _tasks)
+        {
+            task.DisplayTaskDetails();
+            Console.WriteLine("----------------");
+        }
     }
 
-    public void ViewInCompleteTasks()
+    public void DisplayCompleteTasks()
     {
-        // Display only incomplete tasks
+        foreach (var task in _tasks)
+        {
+            if(task.GetCompleteStatus())
+            {
+                task.DisplayTaskDetails();
+            }
+        }
+    }
+
+    public void DisplayInCompleteTasks()
+    {
+        foreach (var task in _tasks)
+        {
+            if(!task.GetCompleteStatus())
+            {
+                task.DisplayTaskDetails();
+            }
+        }
     }
 
     public List<Task> GetTasks()

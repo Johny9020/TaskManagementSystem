@@ -8,6 +8,11 @@ class Program
     {
         _taskManager = new TaskManager();
         
+        for (int i = 0; i < 10; i++)
+        {
+            _taskManager.AddTask(new Task("Hey " + i, "Description: " + i));
+        }
+
         Console.WriteLine("Task Management System. By Johny9020");
         Console.WriteLine("Please follow the instructions bellow. Press a number according to the wished command.");
         Run();
@@ -31,10 +36,44 @@ class Program
             case "2":
                 DisplayTask();
                 break;
+            case "3":
+                DisplayAllTasks();
+                break;
+            case "4":
+                DisplayCompleted();
+                break;
+            case "5":
+                DisplayInComplete();
+                break;
             default:
                 Exit();
                 break;
         }
+    }
+
+    public static void PrintContinue()
+    {
+        Console.WriteLine("Enter any key to continue...");
+        Console.ReadLine();
+        Run();
+    }
+
+    private static void DisplayAllTasks()
+    {
+        _taskManager.DisplayAllTasks();
+        PrintContinue();
+    }
+
+    private static void DisplayInComplete()
+    {
+        _taskManager.DisplayInCompleteTasks();
+        PrintContinue();
+    }
+
+    private static void DisplayCompleted()
+    {
+        _taskManager.DisplayCompleteTasks();
+        PrintContinue();
     }
 
     private static void CreateTask()
@@ -57,7 +96,9 @@ class Program
             var pressedKey = Console.ReadLine();
             
             if(pressedKey == "0")
+            {
                 Run();
+            }
             
             var displayTask = _taskManager.GetTaskById(int.Parse(pressedKey));
             
@@ -66,9 +107,8 @@ class Program
                 Console.WriteLine("Invalid task id!");
                 DisplayTask();
             }
-            Console.WriteLine("Enter any key to continue...");
-            Console.ReadLine();
-            Run();
+            displayTask.DisplayTaskDetails();
+            PrintContinue();
         }
         catch (FormatException e)
         {

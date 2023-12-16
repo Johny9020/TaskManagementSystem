@@ -2,7 +2,7 @@
 
 public class Task
 {
-    private static int _counter = 0;
+    private static int _counter;
     public int TaskId { get; set; }
     private string TaskName { get; set; }
     private string Description { get; set; }
@@ -30,5 +30,10 @@ public class Task
         Console.WriteLine("Task Description: " + Description);
         Console.WriteLine("Task Due Date: " + DueDate);
         Console.WriteLine("Is Task Completed?: " + (IsComplete ? "true" : "false"));
+    }
+
+    public bool GetCompleteStatus()
+    {
+        return IsComplete;
     }
 }
