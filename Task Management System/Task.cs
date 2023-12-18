@@ -18,11 +18,6 @@ public class Task
         IsComplete = false;
     }
 
-    public void MarkAsComplete()
-    {
-        IsComplete = true;
-    }
-
     public void DisplayTaskDetails()
     {
         Console.WriteLine("Task ID: " + TaskId);
@@ -35,5 +30,43 @@ public class Task
     public bool GetCompleteStatus()
     {
         return IsComplete;
+    }
+
+    public string GetName()
+    {
+        return TaskName;
+    }
+
+    public void EditName()
+    {
+        Console.WriteLine("Enter a new name for task: " + TaskName);
+        var enteredName = Console.ReadLine();
+
+        if(enteredName?.Length <= 0)
+            Program.Run();
+
+        TaskName = enteredName!;
+        StringUtils.PrintSeperator(true);
+        Program.Run();
+    }
+
+    public void EditDescription()
+    {
+        Console.WriteLine("Enter a new description for task: " + TaskName);
+        var enteredDesc = Console.ReadLine();
+
+        if(enteredDesc?.Length <= 0)
+            Program.Run();
+
+        Description = enteredDesc!;
+        StringUtils.PrintSeperator(true);
+        Program.Run();
+    }
+
+    public void SetCompleted(bool state)
+    {
+        IsComplete = state;
+        StringUtils.PrintSeperator(true);
+        Program.Run();
     }
 }

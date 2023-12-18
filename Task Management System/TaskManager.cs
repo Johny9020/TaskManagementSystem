@@ -19,30 +19,68 @@ public class TaskManager
         foreach (var task in _tasks)
         {
             task.DisplayTaskDetails();
-            Console.WriteLine("----------------");
+            StringUtils.PrintSeperator();
         }
     }
 
     public void DisplayCompleteTasks()
     {
+        if(GetCompletedTasksInt() <= 0)
+        {
+            Console.WriteLine("No completed tasks!");
+            StringUtils.PrintSeperator(true);
+            Program.Run();
+        }
+
         foreach (var task in _tasks)
         {
             if(task.GetCompleteStatus())
             {
                 task.DisplayTaskDetails();
+                StringUtils.PrintSeperator();
             }
         }
     }
 
     public void DisplayInCompleteTasks()
     {
+        if(GetInCompleteTasksInt() <= 0)
+        {
+            Console.WriteLine("No completed tasks!");
+            StringUtils.PrintSeperator(true);
+            Program.Run();
+        }
+
         foreach (var task in _tasks)
         {
             if(!task.GetCompleteStatus())
             {
                 task.DisplayTaskDetails();
+                StringUtils.PrintSeperator();
             }
         }
+    }
+
+    private int GetCompletedTasksInt()
+    {
+        int count = 0;
+        foreach (var task in _tasks)
+        {
+            if(task.GetCompleteStatus())
+                count++;
+        }
+        return count;
+    }
+
+    private int GetInCompleteTasksInt()
+    {
+        int count = 0;
+        foreach (var task in _tasks)
+        {
+            if(!task.GetCompleteStatus())
+                count++;
+        }
+        return count;
     }
 
     public List<Task> GetTasks()
@@ -59,5 +97,17 @@ public class TaskManager
         }
 
         return null;
+    }
+
+    public bool DoesTaskExist(int id)
+    {
+        foreach (var task in _tasks)
+        {
+            if(task.TaskId == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
